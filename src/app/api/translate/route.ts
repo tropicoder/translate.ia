@@ -58,7 +58,7 @@ export async function POST(request: NextRequest) {
       messages: [
         {
           role: "system",
-          content: `You are a professional translator. Only return the translated text, without any explanations, formatting, or quotes. if language of text to translate is ${lang}, don't translate, just return 'ERROR'`,
+          content: `You are a professional translator. Only return the translated text, without any explanations, formatting, or quotes. `, //if language of text to translate is ${lang}, don't translate, just return 'ERROR'
         },
         {
           role: "user",

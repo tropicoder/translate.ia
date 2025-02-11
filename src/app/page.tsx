@@ -182,7 +182,7 @@ export default function Home() {
           </div>
         </Card>
       </div>
-      <div className="max-w-5xl mx-auto  text-center text-sm text-gray-500">
+      <div className="max-w-5xl mx-auto  text-center text-sm text-gray-500 pb-4">
         &copy; 2025 tech.cg
       </div>
     </div>
