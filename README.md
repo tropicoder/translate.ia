@@ -4,6 +4,7 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 First, create .env.local file and edit:
 ```bash
+NEXT_PUBLIC_ACTIVE=true
 NEXT_PUBLIC_OPENAI_API_KEY=YOUR_API_HERE
 ```
 

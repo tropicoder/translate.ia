@@ -20,7 +20,7 @@ import {
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { getTitle } from "@/lib/utils";
 import Image from "next/image";
-import { errors, languages, limit } from "@/constants/data";
+import { errors, languages, limit, minimum } from "@/constants/data";
 
 export default function Home() {
   const [sourceText, setSourceText] = useState("");
@@ -34,31 +34,40 @@ export default function Home() {
     if (sourceText.split(" ").length > limit) {
       setError(errors.length);
       return;
-    }
+    } else if (sourceText.split(" ").length < minimum) {
+      setError(errors.mini);
+      return;
+    } else if (sourceText === "") {
+      setError(errors.empty);
+    } else {
+      try {
+        setLoading(true);
+        setError("");
+        const response = await fetch("/api/translate", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            text: sourceText,
+            lang: targetLanguage,
+          }),
+        });
 
-    try {
-      setLoading(true);
-      setError("");
-      const response = await fetch("/api/translate", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          text: sourceText,
-        }),
-      });
-
-      const data = await response.json();
-      if (!response.ok) {
+        const data = await response.json();
+        if (!response.ok) {
+          setLoading(false);
+          setError(data.message);
+          setFinalText("");
+        } else {
+          setLoading(false);
+          setFinalText(data.text);
+        }
+      } catch {
         setLoading(false);
-        setError(data.message);
-      } else {
-        setFinalText(data.text);
+        setError(errors.system);
+        setFinalText("");
       }
-    } catch {
-      setLoading(false);
-      setError(errors.system);
     }
   };
 
@@ -110,8 +119,7 @@ export default function Home() {
         </div>
 
         <Card className="p-6 rounded-md">
-
-        {error != "" && (
+          {error != "" && (
             <div className="pb-6">
               <Alert variant="destructive">
                 <AlertCircle className="h-4 w-4" />
@@ -125,7 +133,7 @@ export default function Home() {
                 disabled={loading}
                 placeholder="Saisissez votre texte"
                 value={sourceText}
-                onChange={(e) => setSourceText(e.target.value)}
+                onChange={(e) => {setSourceText(e.target.value);setError("")}}
                 className="min-h-[300px] resize-none"
               />
               <div className="flex gap-2 items-center pt-1">
