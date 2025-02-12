@@ -112,7 +112,7 @@ export default function Home() {
   };
 
   return (
-    <div className="h-screen w-full min-w-[460px] bg-gray-100">
+    <div className="h-screen w-full min-w-[460px] bg-gray-100 ">
       <div className="bg-white border-b border-gray-200 shadow-sm">
         <div className="max-w-5xl mx-auto p-4 lg:p-6 flex items-center gap-2">
           <Image
@@ -129,7 +129,38 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="max-w-5xl mx-auto p-6 space-y-6">
+      <div className="max-w-5xl mx-auto p-6 ">
+        <div className="flex justify-start space-x-4 py-6">
+          <Button variant="outline" className="flex items-center gap-2 h-14">
+            <div className="">
+              {/* <Languages style={{ width: "40px", height: "30px" }} /> */}
+            </div>
+            <div className="flex flex-col justify-start items-start">
+              <div className="text-blue-600 font-bold">Traduire du texte</div>
+              <div className="text-gray-500 text-sm">
+                {langs.length} langues
+              </div>
+            </div>
+          </Button>
+          <Button
+            variant="outline"
+            className="flex items-center gap-2 h-14"
+            disabled
+          >
+            <div>
+              {/* <FileText style={{ width: "30px", height: "30px" }} /> */}
+            </div>
+            <div className="flex flex-col justify-start items-start">
+              <div className="text-gray-950 font-bold">
+                Traduire des fichiers
+              </div>
+              <div className="text-gray-500 text-sm">.pdf, .docx, .pptx</div>
+            </div>
+          </Button>
+        </div>
+      </div>
+
+      <div className="max-w-5xl mx-auto p-6 space-y-2 ">
         <Card className="p-6 rounded-md">
           {error && (
             <div className="pb-6">
@@ -140,7 +171,7 @@ export default function Home() {
             </div>
           )}
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 ">
             <div className="space-y-4">
               <div className="relative">
                 {/* 🎯 Textarea with space for the mic button */}
